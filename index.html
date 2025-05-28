@@ -13,8 +13,10 @@
 <body>
   <!-- Preloader -->
 <div id="preloader">
-  <div class="preloader-content">
-    <img src="https://static.wikia.nocookie.net/logopedia/images/c/c0/2007_-_K-On%21_English.png" style="width: 275px;" alt="K-ON! Logo">
+  <div class="preloader-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <img src="https://static.wikia.nocookie.net/logopedia/images/c/c0/2007_-_K-On%21_English.png" style="width: 275px; display: block; margin: 0 auto;" alt="K-ON! Logo">
+    <button id="start-btn" style="margin-top: 2.5rem; padding: 0.7rem 2.2rem; border-radius: 12px; border: none; background: linear-gradient(90deg, #ffb6d5 0%, #b388ff 100%); color: #fff; font-size: 1.1rem; font-weight: 600; box-shadow: 0 2px 8px 0 rgba(255, 182, 213, 0.15); cursor: pointer;">Start</button>
+    <audio id="preloader-audio" src="k-on_sfx.mp3"></audio>
   </div>
 </div>
 
@@ -168,14 +170,28 @@
     AOS.init();
   </script>
   <script>
-  window.addEventListener("load", () => {
-  const preloader = document.getElementById("preloader");
-  setTimeout(() => {
-    preloader.style.opacity = "0";
-    preloader.style.transition = "opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1)";
-    setTimeout(() => preloader.style.display = "none", 700);
-  }, 1400); // Preloader stays for 1.4s
-});
+// Preloader with user interaction for audio
+const preloader = document.getElementById("preloader");
+const audio = document.getElementById("preloader-audio");
+const startBtn = document.getElementById("start-btn");
+if (startBtn) {
+  startBtn.addEventListener("click", function() {
+    startBtn.disabled = true;
+    if (audio) {
+      audio.currentTime = 0;
+      audio.play();
+      audio.onended = () => {
+        preloader.style.opacity = "0";
+        preloader.style.transition = "opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1)";
+        setTimeout(() => preloader.style.display = "none", 700);
+      };
+    } else {
+      preloader.style.opacity = "0";
+      preloader.style.transition = "opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1)";
+      setTimeout(() => preloader.style.display = "none", 700);
+    }
+  });
+}
 
 // Flip card: flip on click and on hover (desktop)
 document.querySelectorAll('.flip-card').forEach(card => {
@@ -198,3 +214,4 @@ document.querySelectorAll('.flip-card').forEach(card => {
 
 </body>
 </html>
+
