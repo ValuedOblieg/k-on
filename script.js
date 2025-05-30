@@ -1,5 +1,25 @@
-// Simple fade-in animation on scroll
-document.addEventListener("DOMContentLoaded", () => {
+// Redirect to login if not authenticated
+document.addEventListener("DOMContentLoaded", function() {
+  // Initialize Firebase if not already initialized
+  if (!firebase.apps.length) {
+   const firebaseConfig = {
+        apiKey: "AIzaSyBjJr29_O7TQ2GugO6yUvQKgzGCAsf1sh8",
+        authDomain: "k-on-login-page.firebaseapp.com",
+        projectId: "k-on-login-page",
+        storageBucket: "k-on-login-page.firebasestorage.app",
+        messagingSenderId: "1029468598680",
+        appId: "1:1029468598680:web:156f1c0426e62da296bbed",
+        measurementId: "G-30B4FS9RZ9"
+    };
+    firebase.initializeApp(firebaseConfig);
+  }
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (!user) {
+      window.location.href = "https://k-on-login-page.firebaseapp.com/"; // Change to your login page URL
+    }
+  });
+});
   const fadeEls = document.querySelectorAll(".fade-in");
 
   const observer = new IntersectionObserver((entries) => {
@@ -13,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   fadeEls.forEach(el => observer.observe(el));
-});
 
 let currentIndex = 0;
 const slider = document.getElementById("characterSlider");
