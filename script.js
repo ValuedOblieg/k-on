@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Wait for Firebase to check auth state before running anything else
   firebase.auth().onAuthStateChanged(function(user) {
     if (!user) {
-      window.location.href = "https://valuedoblieg.github.io/fragrant/"; // Change to your login page URL
+      window.location.href = "https://k-on-login-page.firebaseapp.com/"; // Change to your login page URL
       return;
     }
     // Only run the rest of your code if the user is authenticated
