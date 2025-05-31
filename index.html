@@ -170,6 +170,51 @@
   <script src="script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
   <script>
+    AOS.init();
+  </script>
+  <script>
+// Preloader with user interaction for audio
+const preloader = document.getElementById("preloader");
+const audio = document.getElementById("preloader-audio");
+const startBtn = document.getElementById("start-btn");
+if (startBtn) {
+  startBtn.addEventListener("click", function() {
+    startBtn.disabled = true;
+    if (audio) {
+      audio.currentTime = 0;
+      audio.play();
+      audio.onended = () => {
+        preloader.style.opacity = "0";
+        preloader.style.transition = "opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1)";
+        setTimeout(() => preloader.style.display = "none", 700);
+      };
+    } else {
+      preloader.style.opacity = "0";
+      preloader.style.transition = "opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1)";
+      setTimeout(() => preloader.style.display = "none", 700);
+    }
+  });
+}
+
+// Flip card: flip on click and on hover (desktop)
+document.querySelectorAll('.flip-card').forEach(card => {
+  card.addEventListener('click', function () {
+    const inner = this.querySelector('.flip-card-inner');
+    inner.classList.toggle('flipped');
+  });
+  card.addEventListener('mouseenter', function () {
+    if (window.innerWidth > 768) {
+      this.querySelector('.flip-card-inner').classList.add('flipped');
+    }
+  });
+  card.addEventListener('mouseleave', function () {
+    if (window.innerWidth > 768) {
+      this.querySelector('.flip-card-inner').classList.remove('flipped');
+    }
+  });
+});
+</script>
+  <script>
     // Initialize Firebase (compat SDK)
     const firebaseConfig = {
         apiKey: "AIzaSyA3gGl-Daqw2Xgyn1oiBEhrc4gNRPBJjH4",
