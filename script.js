@@ -1,6 +1,14 @@
-document.addEventListener("DOMContentLoaded")
-  // Initialize Firebase if not already initialized
- 
+document.addEventListener("DOMContentLoaded", function() {
+  // Wait for Firebase to check auth state before running anything else
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (!user) {
+      window.location.href = "https://valuedoblieg.github.io/login/"; // Redirect to your login page on GitHub Pages
+      return;
+    }
+    // Only run the rest of your code if the user is authenticated
+    startMainApp();
+  });
+});
 
 function startMainApp() {
   const fadeEls = document.querySelectorAll(".fade-in");
